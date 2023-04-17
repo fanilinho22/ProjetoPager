@@ -1,5 +1,6 @@
 package com.example.projetopager;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +19,14 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Primeiro extends Fragment {
-
+    Button botaosomar, botaosubtrair;
+    Button botaolimpar;
+    EditText horaInicial, horaFinal, minutoInicial, minutoFinal;
+    TextView resultadoHora, resultadoMinuto;
+    int horaI;
+    int horaF;
+    int minutoI;
+    int minutoF;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,10 +67,124 @@ public class Primeiro extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_primeiro, container, false);
+        View v = inflater.inflate(R.layout.fragment_primeiro, container, false);
+        horaInicial = v.findViewById(R.id.horaInicial);
+        horaFinal = v.findViewById(R.id.horaFinal);
+        minutoInicial = v.findViewById(R.id.minutoInicial);
+        minutoFinal = v.findViewById(R.id.minutoFinal);
+        resultadoHora = v.findViewById(R.id.resultadoHora);
+        resultadoMinuto = v.findViewById(R.id.resultadoMinuto);
+        botaosomar = v. findViewById(R.id.botaosomar);
+        botaosubtrair = v. findViewById(R.id.botaosubtrair);
+        botaolimpar = v. findViewById(R.id.botaolimpar);
+        botaosomar.setOnClickListener(click ->somar());
+        botaosubtrair.setOnClickListener(click ->subtrair());
+        botaolimpar.setOnClickListener(click ->limpar());
+        return v;
+    }
+    @SuppressLint("SetTextI18n")
+    public void somar() {
+        verificaCampo();
+
+        int rH = horaI + horaF;
+        int rM = minutoI + minutoF;
+
+        while (rM > 59) {
+            rM -= 60;
+            rH++;
+        }
+
+        resultadoHora.setText(rH + "");
+        resultadoMinuto.setText(rM + "");
+
+    }
+
+    public void subtrair() {
+        String mensagem = "Subtração realizada com sucesso!!!";
+
+        verificaCampo();
+
+
+        while (horaI > 0) {
+            horaI--;
+            minutoI += 60;
+        }
+        while (horaF > 0) {
+            horaF--;
+            minutoF += 60;
+        }
+        int rH = horaI - horaF;
+        int rM = minutoI - minutoF;
+
+        if (minutoF > minutoI) {
+            rM = minutoF - minutoI;
+        }
+        if (horaF > horaI) {
+            rH = horaF - horaI;
+        }
+
+        while (rM < 0) {
+            rM += 60;
+            rH--;
+        }
+
+        while (rM > 59) {
+            rM -= 60;
+            rH++;
+        }
+
+        while (minutoF > 59) {
+            minutoF -= 60;
+            horaF++;
+        }
+
+        while (rM > 59) {
+            rM -= 60;
+            horaF++;
+        }
+
+
+        resultadoHora.setText(rH + " ");
+        resultadoMinuto.setText(rM + " ");
+
+    }
+
+    public void limpar() {
+        String mensagem = "Os campos ja estao limpos!";
+
+        if (horaInicial.getText().length() == 0
+                || horaFinal.getText().length() == 0
+                || minutoInicial.getText().length() == 0
+                || minutoFinal.getText().length() == 0) {
+            Toast.makeText(getContext(), mensagem, Toast.LENGTH_SHORT).show();
+        } else {
+            horaInicial.setText(null);
+            horaFinal.setText(null);
+            minutoInicial.setText(null);
+            minutoFinal.setText(null);
+            resultadoHora.setText(null);
+            resultadoMinuto.setText(null);
+        }
+    }
+
+    public void verificaCampo() {
+
+        try {
+            horaI = Integer.parseInt(horaInicial.getText().toString());
+            horaF = Integer.parseInt(horaFinal.getText().toString());
+            minutoI = Integer.parseInt(minutoInicial.getText().toString());
+            minutoF = Integer.parseInt(minutoFinal.getText().toString());
+        } catch (Exception e) {
+            horaI = 0;
+            horaF = 0;
+            minutoI = 0;
+            minutoF = 0;
+            Toast.makeText(getContext(), "Preencha os campos corretamente!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

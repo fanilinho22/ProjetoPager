@@ -1,9 +1,12 @@
 package com.example.projetopager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -16,15 +19,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
         tab = findViewById(R.id.tab);
         pager = findViewById(R.id.pager);
         FragmentManager fm = getSupportFragmentManager();
         Adaptador adaptador = new Adaptador(fm, getLifecycle());
         pager.setAdapter(adaptador);
-        tab.addTab(tab.newTab().setText("Nome"));
-        tab.addTab(tab.newTab().setText("Turma"));
-        tab.addTab(tab.newTab().setText("Cidade"));
-        tab.addTab(tab.newTab().setText("VASCO"));
+        tab.addTab(tab.newTab().setText("Calculaora Hora"));
+        tab.addTab(tab.newTab().setText("Jogo Ramdom"));
+        tab.addTab(tab.newTab().setText("Camera"));
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
