@@ -31,6 +31,6 @@
 
 Feito com ☕ por Daniel Pedrozo 👋🏽 Entre em contato!
 
-[![Linkedin Badge](https://img.shields.io/badge/-Daniel-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daniel-pedrozo/)](https://www.linkedin.com/in/daniel-pedrozo/) 
+[![Linkedin Badge](https://img.shields.io/badge/-Daniel-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daniel-pedrozo-251a5025b/)](https://www.linkedin.com/in/daniel-pedrozo-251a5025b/) 
 [![Gmail Badge](https://img.shields.io/badge/-daniel.pedrozo8266gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:daniel.pedrozo8266@gmail.com)](mailto:daniel.pedrozo8266@gmail.com)
 
